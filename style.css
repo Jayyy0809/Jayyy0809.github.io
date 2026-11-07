@@ -3,3 +3,19 @@
 
 /* Native dialog handles focus trapping and Escape. */
 [hidden]{display:none!important}dialog.modal{border:0;color:inherit;max-height:calc(100vh - 60px);overflow:auto;margin:auto}dialog.modal::backdrop{background:#171c22a8;backdrop-filter:blur(8px)}
+/* Dark theme and shared motion policy. */
+:root{color-scheme:dark;background:#111512;color:#e6e9e3}
+#grid-bg{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:-1}
+body{isolation:isolate}header,main,footer{position:relative}
+.hero-bottom p,.project-info p,.about p,.modal-subtitle{color:#a4afa5}
+.section-heading{border-color:#354039}.section-heading h2 span,.count,.draft,footer>span{color:#a4afa5}
+.hero-star,.dot{color:#a4b995}.dot{background:#a4b995}
+.filters button{border-color:#455348}.filters button[aria-pressed=true]{background:#d0dfbd;color:#182016;border-color:#d0dfbd}
+.discover{border-color:#6f816e}.about{background:#19221cdd}.circle-link{border-color:#657561}.circle-link:hover{background:#34432f}
+.view{background:#172019;color:#e6e9e3}.modal{background:#19221c;color:#e6e9e3}.placeholder-note{border-color:#465344;color:#a4afa5}.skip{background:#25352a;color:#fff}
+.language-switch{display:flex;align-items:center;gap:10px;font-size:11px;white-space:nowrap}.language-switch>span{font-size:11px;margin:0;vertical-align:baseline;color:#6f816e}.language-switch a{color:#92a18e}.language-switch a[aria-current]{color:#e6e9e3;text-decoration:underline;text-underline-offset:5px}
+footer button:disabled{opacity:.65;cursor:default}.entry{padding:60px 6%}.entry h1{font-size:72px}.entry a{text-decoration:underline}
+html[lang=ko]{font-family:'DM Sans','Noto Sans KR','Malgun Gothic',sans-serif;word-break:keep-all}html[lang=ko] .serif{font-family:Georgia,'Noto Serif KR','Batang',serif}html[lang=ko] h1{font-size:clamp(58px,8vw,112px);letter-spacing:-4px}html[lang=ko] .about h2{letter-spacing:-2px}
+html[data-motion=false] .project:hover .art-object{transform:none}
+@media(prefers-reduced-motion:reduce){.project:hover .art-object{transform:none}}
+@media(max-width:760px){nav{gap:12px;flex-wrap:wrap;justify-content:flex-end}.language-switch{gap:6px}header{gap:16px}html[lang=ko] h1{font-size:clamp(50px,10vw,78px)}.hero-star{font-size:56px}}

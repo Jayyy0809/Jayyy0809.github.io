@@ -9,7 +9,7 @@
   const active = () => document.documentElement.dataset.motion === 'true' && !document.hidden;
   function draw() {
     const now = performance.now();
-    waves = waves.filter(wave => now - wave.start < 1200);
+    waves = waves.filter(wave => now - wave.start < 1700);
     context.clearRect(0, 0, width, height);
     let moving = false;
     for (const p of points) {
@@ -20,18 +20,25 @@
       if (influence) { tx += dx / (distance || 1) * influence * 28; ty += dy / (distance || 1) * influence * 28; }
       let glow = 0;
       for (const wave of waves) {
-        const age = (now - wave.start) / 1200;
+        const age = (now - wave.start) / 1700;
         const wx = p.ox - wave.x, wy = p.oy - wave.y;
         const radius = Math.hypot(wx, wy);
-        const strength = Math.exp(-(((radius - age * 650) / 42) ** 2)) * (1 - age);
-        tx += wx / (radius || 1) * strength * 32;
-        ty += wy / (radius || 1) * strength * 32;
+        // A bright leading crest and a smaller trailing trough read as a wave,
+        // distinct from the steady mouse proximity effect.
+        const front = age * 1000;
+        const fade = (1 - age) ** .6;
+        const strength = Math.exp(-(((radius - front) / 48) ** 2)) * fade;
+        const trough = Math.exp(-(((radius - front + 70) / 36) ** 2)) * fade;
+        const displacement = strength * 68 - trough * 24;
+        tx += wx / (radius || 1) * displacement;
+        ty += wy / (radius || 1) * displacement;
         glow = Math.max(glow, strength);
       }
-      p.x += (tx - p.x) * .13; p.y += (ty - p.y) * .13;
+      const response = waves.length ? .24 : .13;
+      p.x += (tx - p.x) * response; p.y += (ty - p.y) * response;
       if (Math.abs(tx - p.x) + Math.abs(ty - p.y) > .1) moving = true;
-      context.fillStyle = `rgba(${dotColor},${.17 + Math.max(influence, glow) * .55})`;
-      context.beginPath(); context.arc(p.x, p.y, 1 + Math.max(influence, glow) * .9, 0, Math.PI * 2); context.fill();
+      context.fillStyle = `rgba(${dotColor},${Math.min(1, .17 + influence * .3 + glow * .95)})`;
+      context.beginPath(); context.arc(p.x, p.y, 1 + influence * .5 + glow * 1.9, 0, Math.PI * 2); context.fill();
     }
     frame = (moving || waves.length) && active() ? requestAnimationFrame(draw) : 0;
   }

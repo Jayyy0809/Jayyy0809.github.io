@@ -1,0 +1,22 @@
+/* Edit these values to change shared interaction colors. */
+:root {
+  --accent: #c6e4a7;
+  --card-outline: var(--accent);
+  --card-glow: rgb(198 228 167 / 18%);
+  --focus-color: var(--accent);
+  --dot-rgb: 169, 190, 178;
+}
+.project { border-radius: 3px; outline: 2px solid transparent; outline-offset: 8px; transition: outline-color .2s, box-shadow .2s; }
+@media (hover: hover) {
+  .project:hover { outline-color: var(--card-outline); box-shadow: 0 0 28px var(--card-glow); }
+}
+.project:focus-visible,.project:active { outline: 2px solid var(--card-outline); box-shadow: 0 0 28px var(--card-glow); }
+a:focus-visible,button:focus-visible { outline-color: var(--focus-color); }
+.filters button[aria-pressed=true] { background: var(--accent); border-color: var(--accent); }
+.hero-star { color: var(--accent); }.dot { background: var(--accent); }
+.project-cover { width:100%;height:100%;object-fit:cover; }
+.modal-art:has(img) { height:auto;min-height:0; }
+.modal-art img { width:100%;height:auto;display:block; }
+.project-gallery { display:grid;gap:24px; }
+.project-gallery figure { margin:0; }.project-gallery img{display:block;width:100%;height:auto}
+.project-gallery figcaption{color:#a4afa5;font-size:12px;line-height:1.6;margin-top:8px}
